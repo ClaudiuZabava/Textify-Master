@@ -17,21 +17,8 @@
 
     <style name="Theme.Textify.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splashscreen_bgc</item>
-        // post splash screen
         <item name="postSplashScreenTheme">@style/Theme.Textify</item>
-        <item name="lottieAnimationViewStyle">
-                android:id="@+id/splash_lottie_icon"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:transitionName="splash_logo"
-                app:lottie_rawRes="@raw/splash_icon_2"
-                app:lottie_loop="true"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="170dp"
-                app:lottie_autoPlay="true"/>
-        </item>
+
 
 
     </style>
