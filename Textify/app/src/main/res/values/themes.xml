@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <style name="Theme.Textify" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/splashscreen_bgc</item>
+        <item name="colorPrimaryVariant">@color/chatscreen_sender_tc</item>
+        <item name="colorOnPrimary">@color/mainscreen_bgc</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#eeeefd</item>
+        <item name="colorSecondaryVariant">@color/chatscreen_receiver_bubble_bg</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.Textify.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splashscreen_bgc</item>
+        // post splash screen
+        <item name="postSplashScreenTheme">@style/Theme.Textify</item>
+        <item name="lottieAnimationViewStyle">
+                android:id="@+id/splash_lottie_icon"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:transitionName="splash_logo"
+                app:lottie_rawRes="@raw/splash_icon_2"
+                app:lottie_loop="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="170dp"
+                app:lottie_autoPlay="true"/>
+        </item>
+
+
+    </style>
+</resources>
