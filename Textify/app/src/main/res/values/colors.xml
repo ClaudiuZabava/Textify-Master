@@ -12,8 +12,13 @@
     <color name="splashscreen_bgc">#6765c8</color>
     <color name="splashscreen_tc">#FFFFFF</color>
 
+    <!--   Auth Screen-->
+    <color name="authscreen_bgc">#eafffe</color>
+    <color name="authscreen_header_bgc">#6765c8</color>
+    <color name="authscreen_header_tc">#FFFFFF</color>
+
     <!--    Main Screen-->
-    <color name="mainscreen_bgc">#eeeefd</color>
+    <color name="mainscreen_bgc">#eafffe</color>
     <color name="mainscreen_icon_color">#BD99FF</color>
     <color name="mainscreen_header_tc">#6765c8</color>
     <color name="statusbar_tc">#000000</color>
