@@ -9,30 +9,34 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
 import com.example.textify.R
 import com.example.textify.utils.Constants
 import com.example.textify.utils.PreferenceHandler
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var preferenceHandler: PreferenceHandler
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        preferenceHandler = PreferenceHandler(applicationContext)
         installSplashScreen().apply {
             setKeepOnScreenCondition{ true }
 //            lifecycleScope.launch { delay(1000L)
 //                setKeepOnScreenCondition{ false }
 //            }
+
             Handler(Looper.getMainLooper()).postDelayed({
-                var intent = Intent(this@MainActivity,AuthActivity::class.java)
-//                if(preferenceHandler.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
-//                    intent = Intent(this@SplashActivity, MainActivity::class.java)
-//                    ---> removed and putted outside      startActivity(intent)
-//                  finish()
-//               }
-                setKeepOnScreenCondition{ false }
-                startActivity(intent)
+
+                if(!(preferenceHandler.getBoolean(Constants.KEY_IS_SIGNED_IN)))
+                {
+                    val intent = Intent(this@MainActivity, AuthActivity::class.java)
+                    setKeepOnScreenCondition { false }
+                    startActivity(intent)
+                }
+                else{
+                    setKeepOnScreenCondition { false }
+                }
            }, 1000)
         }
         super.onCreate(savedInstanceState)
