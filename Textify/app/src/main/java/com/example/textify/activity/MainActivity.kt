@@ -20,12 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         preferenceHandler = PreferenceHandler(applicationContext)
+
         installSplashScreen().apply {
             setKeepOnScreenCondition{ true }
-//            lifecycleScope.launch { delay(1000L)
-//                setKeepOnScreenCondition{ false }
-//            }
-
             Handler(Looper.getMainLooper()).postDelayed({
 
                 if(!(preferenceHandler.getBoolean(Constants.KEY_IS_SIGNED_IN)))
