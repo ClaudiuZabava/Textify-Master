@@ -22,6 +22,7 @@
     <color name="mainscreen_icon_color">#BD99FF</color>
     <color name="mainscreen_header_bgc">#eafffe</color>
     <color name="mainscreen_header_tc">#6765c8</color>
+    <color name="mainscreen_tc">#6765c8</color>
     <color name="statusbar_tc">#000000</color>
     <color name="mainscreen_chat_board_bg">#FFFFFF</color>
     <color name="mainscreen_chat_board_tc">#474747</color>
@@ -47,4 +48,7 @@
     <color name="chat_del_No_bottomsheet">#8BC34A</color>
     <color name="reply_sender_color">#FF9FBA</color>
     <color name="reply_receiver_color">#7B79C5</color>
+
+    <!-- Settings Color -->
+    <color name="settings_field">#e8e3ff</color>
 </resources>
