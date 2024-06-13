@@ -8,16 +8,19 @@
     <fragment
         android:id="@+id/navigation_chats"
         android:label="Chats"
+        android:name="com.example.textify.fragments.ChatsFragment"
         tools:layout="@layout/fragment_chats" />
 
     <fragment
         android:id="@+id/navigation_contacts"
         android:label="Contacts"
+        android:name="com.example.textify.fragments.ContactsFragment"
         tools:layout="@layout/fragment_contacts"/>
 
     <fragment
-        android:id="@+id/navigation_setting"
-        android:label="Setting"
-        tools:layout="@layout/fragment_account"/>
+        android:id="@+id/navigation_settings"
+        android:label="Settings"
+        android:name="com.example.textify.fragments.SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
 
 </navigation>

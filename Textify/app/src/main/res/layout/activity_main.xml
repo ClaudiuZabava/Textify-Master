@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/logo_main"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
             android:src="@drawable/chat_main"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="Textify"
             android:textColor="@color/mainscreen_header_tc"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:fontFamily="@font/baloo_bhai"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/logo_main"
@@ -43,8 +43,8 @@
 
         <ImageView
             android:id="@+id/search_icon"
-            android:layout_width="55dp"
-            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
             android:src="@drawable/search_img"
             android:contentDescription="@string/search"
             android:padding="10dp"
@@ -80,15 +80,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_body"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/search_body"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        app:defaultNavHost="true"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/nav_graph" />
 
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottom_bar"
@@ -100,7 +102,7 @@
         app:abb_indicatorAppearance="round"
         app:abb_indicatorMargin="10dp"
         app:abb_indicatorHeight="2dp"
-        app:abb_tabs="@menu/bottom_nav_menu"
+        app:abb_tabs="@menu/tabs"
         app:abb_selectedIndex="0"
         app:abb_tabColor="@color/mainscreen_header_tc"
         app:layout_constraintBottom_toBottomOf="parent"
