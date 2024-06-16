@@ -9,5 +9,6 @@ data class User(
     val name: String = "",
     val email: String = "",
     val image: String = "",
+    val status: String = "I'm using Textify!",
     val online_status: Boolean = false
 )

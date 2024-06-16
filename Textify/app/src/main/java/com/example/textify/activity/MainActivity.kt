@@ -1,6 +1,9 @@
 package com.example.textify.activity
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +22,7 @@ import com.example.textify.databinding.ActivityMainBinding
 import com.example.textify.fragments.ChatsFragment
 import com.example.textify.fragments.ContactsFragment
 import com.example.textify.fragments.SettingsFragment
+import com.example.textify.repos.UserRepo
 import com.example.textify.utils.Constants
 import com.example.textify.utils.PreferenceHandler
 import nl.joery.animatedbottombar.AnimatedBottomBar
@@ -30,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var preferenceHandler: PreferenceHandler
     private lateinit var bindingMain: ActivityMainBinding
     private lateinit var navController: NavController
+    private lateinit var userRepo: UserRepo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         preferenceHandler = PreferenceHandler(applicationContext)
@@ -50,6 +55,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         bindingMain = ActivityMainBinding.inflate(layoutInflater)
+        userRepo = UserRepo(applicationContext)
+
+        if(isNetworkConnected() && preferenceHandler.getString(Constants.KEY_USER_ID) != null)
+        {
+            userRepo.syncWithFirestore(preferenceHandler.getString(Constants.KEY_USER_ID)!!)
+        }
         setContentView(bindingMain.root)
         ViewCompat.setOnApplyWindowInsetsListener(bindingMain.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -110,5 +121,12 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(bindingMain.navHostFragment.id, fragment)
             .commit()
+    }
+
+    private fun isNetworkConnected(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 }

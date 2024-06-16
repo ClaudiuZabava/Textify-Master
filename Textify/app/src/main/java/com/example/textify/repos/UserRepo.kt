@@ -41,6 +41,10 @@ class UserRepo(private val context: Context) {
         userDao.updateImage(uid, image)
     }
 
+    suspend fun updateStatus(uid: String, status: String) {
+        userDao.updateStatus(uid, status)
+    }
+
 
     fun updateFieldFirestore(uid: String, field: String, value: Any) {
         Log.d("DEBUG1911", "Updatiing the field")
@@ -52,6 +56,7 @@ class UserRepo(private val context: Context) {
                         "name" -> updateUsername(uid, value as String)
                         "online_status" -> updateOnlineStatus(uid, value as Boolean)
                         "image" -> updateImage(uid, value as String)
+                        "status" -> updateStatus(uid, value as String)
                     }
                 }
             }
@@ -71,30 +76,36 @@ class UserRepo(private val context: Context) {
         }
     }
 
-    fun syncWithFirestore() {
-        firestore.collection("users")
+    // sync only a user mentioned by id
+    fun syncWithFirestore(uid: String) {
+        firestore.collection("users").document(uid)
             .get()
             .addOnSuccessListener { result ->
                 scope.launch {
-                    for (document in result) {
-                        val user = document.toObject(User::class.java)
-                        userDao.insert(user) // This will replace the existing user or insert a new one
+                    val user = result.toObject(User::class.java)
+                    val localUser = userDao.getUser(user!!.id)
+
+                    if(localUser == null) {
+                        deleteAllUsers()
                     }
+                    userDao.insert(user) // This will replace the existing user or insert a new one
                 }
             }
     }
-
     fun uploadUserToFirestore(user: User) {
         Log.d("DEBUG", "Uploading user to firestore - AICI")
         firestore.collection(Constants.KEY_COLLECTION_USER).document(user.id).set(user)
             .addOnSuccessListener {
-                syncWithFirestore()
+                syncWithFirestore(user.id)
                 showToast("User Registered ")
             }.addOnFailureListener{
                 showToast("Failed to register user")
             }
 
     }
+
+    // Function to get user ID from db
+
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }

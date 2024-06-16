@@ -78,7 +78,7 @@ class RegisterFragment:Fragment() {
         auth = FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
             if(it.isSuccessful) {
-                val user = User(auth.currentUser!!.uid, username, email, "", false)
+                val user = User(auth.currentUser!!.uid, username, email, "", "I'm using Textify", false)
                 userRepo.uploadUserToFirestore(user)
                 //POST: save user entry in firestore
                 requireActivity().supportFragmentManager.beginTransaction()
