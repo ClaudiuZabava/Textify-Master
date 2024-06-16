@@ -11,17 +11,17 @@ import androidx.fragment.app.Fragment
 import com.example.textify.R
 import com.example.textify.databinding.FragmentRegisterBinding
 import com.example.textify.models.User
+import com.example.textify.repos.UserRepo
 import com.example.textify.utils.Constants
 import com.example.textify.utils.PreferenceHandler
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFragment:Fragment() {
 
     private lateinit var bindingRegister: FragmentRegisterBinding;
     private lateinit var prefHandler: PreferenceHandler;
     private lateinit var auth: FirebaseAuth;
-    private lateinit var fire: FirebaseFirestore;
+    private lateinit var userRepo: UserRepo;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +34,7 @@ class RegisterFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        userRepo = UserRepo(requireContext())
         setListeners()
     }
 
@@ -77,17 +78,9 @@ class RegisterFragment:Fragment() {
         auth = FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
             if(it.isSuccessful) {
-                fire = FirebaseFirestore.getInstance()
-                // use the model class User
                 val user = User(auth.currentUser!!.uid, username, email, "", false)
-
+                userRepo.uploadUserToFirestore(user)
                 //POST: save user entry in firestore
-                fire.collection(Constants.KEY_COLLECTION_USER).document(auth.currentUser!!.uid).set(user).addOnSuccessListener {
-                    showToast("User Registered")
-                }.addOnFailureListener {
-                    showToast("Unable to save user info in cloud")
-                }
-
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.auth_holder, LoginFragment())
                     .commit()
