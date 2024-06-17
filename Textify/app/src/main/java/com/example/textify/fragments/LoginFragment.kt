@@ -1,6 +1,9 @@
 package com.example.textify.fragments
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -8,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.textify.R
 import com.example.textify.activity.MainActivity
@@ -48,21 +52,35 @@ class LoginFragment:Fragment() {
 
         btnLogin.setOnClickListener()
         {
-            //Log.d("DEBUG ", "Passed here inside on click")
-            val email: String = emailFld.text.toString();
-            val password: String = passwordFld.text.toString();
-            if (isValidSignInDetails(email, password)) {
-                login(email, password)
-            } else {
-                showToast("Invalid email or password")
+            if(!isNetworkConnected())
+            {
+                showToast("No Internet Connection")
+                return@setOnClickListener
+            }
+            else {
+                //Log.d("DEBUG ", "Passed here inside on click")
+                val email: String = emailFld.text.toString();
+                val password: String = passwordFld.text.toString();
+                if (isValidSignInDetails(email, password)) {
+                    login(email, password)
+                } else {
+                    showToast("Invalid email or password")
+                }
             }
         }
         btnRegister.setOnClickListener()
         {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.auth_holder, RegisterFragment())
-                .addToBackStack(null)
-                .commit()
+            if(!isNetworkConnected())
+            {
+                showToast("No Internet Connection")
+                return@setOnClickListener
+            }
+            else {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.auth_holder, RegisterFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
     }
 
@@ -102,6 +120,13 @@ class LoginFragment:Fragment() {
         } else {
             true
         }
+    }
+
+    private fun isNetworkConnected(): Boolean {
+        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
     private fun showToast(message: String) {

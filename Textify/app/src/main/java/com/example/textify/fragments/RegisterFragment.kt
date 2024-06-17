@@ -1,6 +1,9 @@
 package com.example.textify.fragments
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -48,18 +51,22 @@ class RegisterFragment:Fragment() {
 
         btnRegSent.setOnClickListener()
         {
-            val email: String = emailFldR.text.toString();
-            val username: String = usernameFldR.text.toString();
-            val password: String = passwordFldR.text.toString();
-
-            if(isValidSignUpDetails(email, username, password))
+            if(!isNetworkConnected())
             {
-                register(email,username,password)
-
+                showToast("No Internet Connection")
+                return@setOnClickListener
             }
-            else
-            {
-                showToast("Invalid email, username or password")
+            else {
+                val email: String = emailFldR.text.toString();
+                val username: String = usernameFldR.text.toString();
+                val password: String = passwordFldR.text.toString();
+
+                if (isValidSignUpDetails(email, username, password)) {
+                    register(email, username, password)
+
+                } else {
+                    showToast("Invalid email, username or password")
+                }
             }
         }
 
@@ -108,6 +115,13 @@ class RegisterFragment:Fragment() {
         } else {
             true
         }
+    }
+
+    private fun isNetworkConnected(): Boolean {
+        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
     private fun showToast(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
