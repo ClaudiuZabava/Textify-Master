@@ -81,15 +81,21 @@ class UserRepo(private val context: Context) {
         firestore.collection("users").document(uid)
             .get()
             .addOnSuccessListener { result ->
+                Log.d("DEBUG1911", "Success result is $result")
                 scope.launch {
                     val user = result.toObject(User::class.java)
+                    Log.d("DEBUG1911", "User is $user")
                     val localUser = userDao.getUser(user!!.id)
+                    Log.d("DEBUG1911", "Local user is $localUser")
 
                     if(localUser == null) {
                         deleteAllUsers()
                     }
                     userDao.insert(user) // This will replace the existing user or insert a new one
                 }
+            }
+            .addOnFailureListener() {
+                Log.d("DEBUG1911", "Failed to get user from firestore")
             }
     }
     fun uploadUserToFirestore(user: User) {

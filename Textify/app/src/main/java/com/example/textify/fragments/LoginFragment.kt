@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.example.textify.R
 import com.example.textify.activity.MainActivity
 import com.example.textify.databinding.FragmentLoginBinding
+import com.example.textify.repos.ChatroomsRepo
 import com.example.textify.repos.UserRepo
 import com.example.textify.utils.Constants
 import com.example.textify.utils.PreferenceHandler
@@ -27,6 +28,7 @@ class LoginFragment:Fragment() {
     private lateinit var prefHandler: PreferenceHandler;
     private lateinit var auth: FirebaseAuth;
     private lateinit var userRepo: UserRepo;
+    private lateinit var chatroomsRepo: ChatroomsRepo;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +42,7 @@ class LoginFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userRepo = UserRepo(requireContext())
+        chatroomsRepo = ChatroomsRepo(requireContext())
         setListeners()
     }
 
@@ -93,6 +96,7 @@ class LoginFragment:Fragment() {
                 prefHandler.putString(Constants.KEY_USER_ID,it.result.user?.uid!!)
                 Log.d("DEBUG1911 ", "Preferences were ok")
                 userRepo.updateFieldFirestore(it.result.user?.uid!!,"online_status",true)
+                chatroomsRepo.deleteAllChatRooms();
                 Log.d("DEBUG1911 ", "Passed the update field firestore")
                 val intent = Intent(activity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

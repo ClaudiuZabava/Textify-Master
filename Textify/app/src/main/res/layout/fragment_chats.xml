@@ -16,5 +16,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/contactscreen_cv_add"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        android:padding="5dp"
+        android:elevation="5dp"
+        app:cardBackgroundColor="#6765c8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="18dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:paddingStart="2dp"
+            android:paddingTop="3dp"
+            android:scaleType="centerCrop"
+            app:tint="@color/white"
+            android:src="@drawable/ic_newchat" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

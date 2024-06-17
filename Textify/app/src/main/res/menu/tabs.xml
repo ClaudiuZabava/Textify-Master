@@ -6,11 +6,6 @@
         android:title="Chats" />
 
     <item
-        android:id="@+id/navigation_contacts"
-        android:icon="@drawable/ic_contacts1"
-        android:title="Contacts" />
-
-    <item
         android:id="@+id/navigation_setting"
         android:icon="@drawable/ic_setting_4"
         android:title="Settings" />

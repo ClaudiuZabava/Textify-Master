@@ -114,6 +114,13 @@ class ChatroomsRepo(private val context: Context) {
         }
     }
 
+    // delete chatrooms
+    fun deleteAllChatRooms() {
+        scope.launch {
+            chatRoomDao.deleteAllChatRooms()
+        }
+    }
+
     fun removeListeners() {
         receiverListener?.remove()
         senderListener?.remove()

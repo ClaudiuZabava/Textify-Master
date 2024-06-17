@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_chats" />
 
     <fragment
-        android:id="@+id/navigation_contacts"
-        android:label="Contacts"
-        android:name="com.example.textify.fragments.ContactsFragment"
-        tools:layout="@layout/fragment_contacts"/>
-
-    <fragment
         android:id="@+id/navigation_settings"
         android:label="Settings"
         android:name="com.example.textify.fragments.SettingsFragment"

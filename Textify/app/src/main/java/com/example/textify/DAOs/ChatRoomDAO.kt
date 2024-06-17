@@ -16,4 +16,7 @@ interface ChatRoomDAO {
 
     @Query("SELECT * FROM chat_rooms")
     suspend fun getAllChatRooms(): List<ChatRoom>
+
+    @Query("DELETE FROM chat_rooms")
+    suspend fun deleteAllChatRooms()
 }

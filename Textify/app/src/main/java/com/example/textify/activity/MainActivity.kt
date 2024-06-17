@@ -110,8 +110,7 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToDestination(tabIndex: Int) {
         when (tabIndex) {
             0 -> navigateToFragment(ChatsFragment())
-            1 -> navigateToFragment(ContactsFragment())
-            2 -> navigateToFragment(SettingsFragment())
+            1 -> navigateToFragment(SettingsFragment())
             // Add more cases if you have additional tabs
             else -> throw IllegalArgumentException("Invalid tab index: $tabIndex")
         }
