@@ -1,11 +1,13 @@
 package com.example.textify.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.textify.activity.ChatActivity
 import com.example.textify.adapters.ChatsAdapter
 import com.example.textify.databinding.FragmentChatsBinding
 import com.example.textify.models.ChatRoom
@@ -29,8 +31,20 @@ class ChatsFragment: Fragment() {
         bindingChats = FragmentChatsBinding.inflate(layoutInflater)
         prefHandler = PreferenceHandler(requireContext())
         chatroomsRepo = ChatroomsRepo(requireContext())
-        chatsAdapter = ChatsAdapter(requireContext(), chats)
-        //networkConnection = NetworkConnection(requireContext())
+        chatsAdapter = ChatsAdapter(requireContext(), chats).apply {
+            setOnItemClickListener(object : ChatsAdapter.onItemClickListener {
+                override fun onItemClick(position: Int) {
+                    val senderId = chats[position].sender_id
+                    val receiverId = chats[position].receiver_id
+                    val chat_room_id = chats[position].id
+                    val intent = Intent(activity, ChatActivity::class.java)
+                    intent.putExtra(Constants.KEY_SENDER_ID,senderId)
+                    intent.putExtra(Constants.KEY_RECEIVER_ID,receiverId)
+                    intent.putExtra(Constants.KEY_CHAT_ROOM_ID,chat_room_id)
+                    startActivity(intent)
+                }
+            })
+        }
         setupRecyclerView()
         return bindingChats.root
     }

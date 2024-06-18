@@ -30,7 +30,11 @@
 
     <!--    Chat Screen-->
     <color name="chatactivity_color_bg">#eeeefd</color>
-    <color name="chatscreen_header_color">#eeeefd</color>
+    <color name="chatscreen_bg">#eafffe</color>
+    <color name="chatscreen_body_bgc">#eeeefd</color>
+    <color name="chatscreen_header_bgc">#eafffe</color>
+    <color name="chatscreen_header_tc">#6765c8</color>
+    <color name="chatscreen_tc">#6765c8</color>
     <color name="chatscreen_icon_color">#6765c8</color>
     <color name="chatscreen_receiver_bubble_bg">#6765c8</color>
     <color name="chatscreen_sender_bubble_bg">#FF83A6</color>
@@ -38,8 +42,8 @@
     <color name="chatscreen_sender_tc">#FFFFFF</color>
     <color name="chatscreen_typingbox_bg">#FFFFFF</color>
     <color name="chatscreen_typingbox_tc">#000000</color>
-    <color name="schatscreen_color_online">#4FFF3B</color>
-    <color name="schatscreen_color_offline">#FF3B3B</color>
+    <color name="chatscreen_color_online">#4FFF3B</color>
+    <color name="chatscreen_color_offline">#FF3B3B</color>
     <color name="schatscreen_color_bg">#FFFFFF</color>
     <color name="chat_del_bottomsheet">#eeeefd</color>
     <color name="chat_del_bar_bottomsheet">#FFFFFF</color>

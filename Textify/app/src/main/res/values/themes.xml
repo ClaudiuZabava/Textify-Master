@@ -17,6 +17,9 @@
     <style name="Theme.Textify.Auth" parent="Theme.Textify">
         <item name="android:windowContentTransitions">true</item>
     </style>
+    <style name="Theme.Textify.Chat" parent="Theme.Textify">
+        <item name="android:windowContentTransitions">true</item>
+    </style>
 
     <style name="Theme.Textify.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splashscreen_bgc</item>

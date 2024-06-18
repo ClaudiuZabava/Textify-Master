@@ -17,8 +17,8 @@ import java.util.Locale
 
 class ChatsAdapter(private val context: Context, private val chatRooms: List<ChatRoom>): RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>()
 {
-
-    inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private lateinit var mListener: onItemClickListener
+    inner class ChatViewHolder(itemView: View, private val listener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
         private val userImage: ImageView = itemView.findViewById(R.id.chat_user_image)
         private val userName: TextView = itemView.findViewById(R.id.chat_user_name)
         private val lastMessage: TextView = itemView.findViewById(R.id.chat_last_message)
@@ -28,7 +28,14 @@ class ChatsAdapter(private val context: Context, private val chatRooms: List<Cha
         private val tick: ImageView = itemView.findViewById(R.id.chat_tick)
         private val unreadHolder: CardView = itemView.findViewById(R.id.chat_unread_holder)
 
-
+        init {
+            itemView.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(position)
+                }
+            }
+        }
         fun bind(chatRoom: ChatRoom) {
             val sender_id: String = FirebaseAuth.getInstance().uid!!
             if(chatRoom.receiver_id.equals(sender_id)) {
@@ -84,7 +91,7 @@ class ChatsAdapter(private val context: Context, private val chatRooms: List<Cha
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.chat_card, parent, false)
-        return ChatViewHolder(view)
+        return ChatViewHolder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
@@ -93,6 +100,12 @@ class ChatsAdapter(private val context: Context, private val chatRooms: List<Cha
 
     override fun getItemCount(): Int = chatRooms.size
 
+    interface onItemClickListener {
+        fun onItemClick(position: Int)
+    }
 
+    fun setOnItemClickListener(listener: onItemClickListener) {
+        mListener = listener
+    }
 
 }
