@@ -83,7 +83,7 @@ class ChatsAdapter(private val context: Context, private val chatRooms: List<Cha
                 val t1 = chatRoom.timestamp?.toDate()
                 val t2 = SimpleDateFormat("HH:mm", Locale.getDefault()).format(t1!!)
                 val t3 = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(t1)
-                unreadCount.text = chatRoom.unread_count.toString()
+                unreadCount.text = "!"
                 chatTime.text = t2.toString()
                 chatDate.text = t3.toString()
             }
